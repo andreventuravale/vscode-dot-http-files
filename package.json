@@ -9,6 +9,14 @@
   "categories": [
     "Programming Languages"
   ],
+  "repository": {
+    "url": "https://github.com/andreventuravale/vscode-dot-http-files"
+  },
+  "author": {
+    "name": "Andre Vale",
+    "email": "andreventuravale@gmail.com"
+  },
+  "license": "MIT",
   "contributes": {
     "languages": [
       {
