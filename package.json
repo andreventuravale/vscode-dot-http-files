@@ -16,6 +16,7 @@
     "name": "Andre Vale",
     "email": "andreventuravale@gmail.com"
   },
+  "publisher": "AndreValeOutlook",
   "license": "MIT",
   "contributes": {
     "languages": [
