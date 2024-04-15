@@ -6,16 +6,36 @@
 			"include": "#comments"
 		},
 		{
-			"include": "#variables"
+			"include": "#variables.global"
 		},
 		{
-			"include": "#method"
+			"include": "#variables.request"
+		},
+		{
+			"include": "#endpoint"
 		},
 		{
 			"include": "#headers"
+		},
+		{
+			"include": "#body"
 		}
 	],
 	"repository": {
+		"body": {
+			"begin": "[^\\s](.*)",
+			"beginCaptures": {
+				"0": {
+					"name": "string.interpolated.body.http",
+					"patterns": [
+						{
+							"include": "#interpolation"
+						}
+					]
+				}
+			},
+			"end": "$"
+		},
 		"comments": {
 			"begin": "(#|//).*$",
 			"beginCaptures": {
@@ -32,7 +52,12 @@
 							"end": "[^\\r\\n]*",
 							"endCaptures": {
 								"0": {
-									"name": "string.interpolated.variable.meta.value.http"
+									"name": "string.interpolated.variable.meta.value.http",
+									"patterns": [
+										{
+											"include": "#interpolation"
+										}
+									]
 								}
 							}
 						}
@@ -41,30 +66,24 @@
 			},
 			"end": "[^\\r\\n]*"
 		},
-		"variables": {
-			"begin": "(@@?[a-zA-Z_][a-zA-Z0-9_]*)\\s*(=)",
+		"endpoint": {
+			"begin": "\\s*\\b([A-Z]+)\\b",
 			"beginCaptures": {
 				"1": {
-					"name": "variable.other.http"
-				},
-				"2": {
-					"name": "keyword.operator.assignment.http"
+					"name": "keyword.other.header.method.http"
 				}
 			},
-			"end": "[^\\r\\n]*",
+			"end": ".*$",
 			"endCaptures": {
 				"0": {
-					"name": "string.interpolated.variable.value.http"
+					"name": "string.interpolated.endpoint.value.http",
+					"patterns": [
+						{
+							"include": "#interpolation"
+						}
+					]
 				}
 			}
-		},
-		"method": {
-			"patterns": [
-				{
-					"name": "keyword.other.http",
-					"match": "\\b(CONNECT|DELETE|GET|HEAD|OPTIONS|POST|PUT|TRACE)\\b"
-				}
-			]
 		},
 		"headers": {
 			"begin": "\\b\\s*([\\w-]+)\\s*(:)",
@@ -79,7 +98,65 @@
 			"end": "[^\\r\\n]*",
 			"endCaptures": {
 				"0": {
-					"name": "string.interpolated.header.value.http"
+					"name": "string.interpolated.header.value.http",
+					"patterns": [
+						{
+							"include": "#interpolation"
+						}
+					]
+				}
+			}
+		},
+		"interpolation": {
+			"begin": "{{([^}]+)",
+			"beginCaptures": {
+				"1": {
+					"name": "entity.name.variable.http"
+				}
+			},
+			"end": "}}"
+		},
+		"variables.request": {
+			"begin": "(@[a-zA-Z_][a-zA-Z0-9_]*)\\s*(=)",
+			"beginCaptures": {
+				"1": {
+					"name": "variable.other.request.http"
+				},
+				"2": {
+					"name": "keyword.operator.assignment.http"
+				}
+			},
+			"end": "[^\\r\\n]*",
+			"endCaptures": {
+				"0": {
+					"name": "string.interpolated.variable.request.value.http",
+					"patterns": [
+						{
+							"include": "#interpolation"
+						}
+					]
+				}
+			}
+		},
+		"variables.global": {
+			"begin": "(@@[a-zA-Z_][a-zA-Z0-9_]*)\\s*(=)",
+			"beginCaptures": {
+				"1": {
+					"name": "variable.other.global.http"
+				},
+				"2": {
+					"name": "keyword.operator.assignment.http"
+				}
+			},
+			"end": "[^\\r\\n]*",
+			"endCaptures": {
+				"0": {
+					"name": "string.interpolated.variable.global.value.http",
+					"patterns": [
+						{
+							"include": "#interpolation"
+						}
+					]
 				}
 			}
 		}
