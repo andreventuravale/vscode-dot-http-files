@@ -1,0 +1,88 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "HTTP Files",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#method"
+		},
+		{
+			"include": "#headers"
+		}
+	],
+	"repository": {
+		"comments": {
+			"begin": "(#|//).*$",
+			"beginCaptures": {
+				"0": {
+					"name": "comment.line.hash.http",
+					"patterns": [
+						{
+							"begin": "(@[a-zA-Z_][a-zA-Z0-9_]*)\\b\\s+",
+							"beginCaptures": {
+								"1": {
+									"name": "variable.meta.http"
+								}
+							},
+							"end": "[^\\r\\n]*",
+							"endCaptures": {
+								"0": {
+									"name": "string.interpolated.variable.meta.value.http"
+								}
+							}
+						}
+					]
+				}
+			},
+			"end": "[^\\r\\n]*"
+		},
+		"variables": {
+			"begin": "(@@?[a-zA-Z_][a-zA-Z0-9_]*)\\s*(=)",
+			"beginCaptures": {
+				"1": {
+					"name": "variable.other.http"
+				},
+				"2": {
+					"name": "keyword.operator.assignment.http"
+				}
+			},
+			"end": "[^\\r\\n]*",
+			"endCaptures": {
+				"0": {
+					"name": "string.interpolated.variable.value.http"
+				}
+			}
+		},
+		"method": {
+			"patterns": [
+				{
+					"name": "keyword.other.http",
+					"match": "\\b(CONNECT|DELETE|GET|HEAD|OPTIONS|POST|PUT|TRACE)\\b"
+				}
+			]
+		},
+		"headers": {
+			"begin": "\\b\\s*([\\w-]+)\\s*(:)",
+			"beginCaptures": {
+				"1": {
+					"name": "variable.name.header.http"
+				},
+				"2": {
+					"name": "keyword.operator.assignment.http"
+				}
+			},
+			"end": "[^\\r\\n]*",
+			"endCaptures": {
+				"0": {
+					"name": "string.interpolated.header.value.http"
+				}
+			}
+		}
+	},
+	"scopeName": "source.http"
+}

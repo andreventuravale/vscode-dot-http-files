@@ -1,0 +1,34 @@
+{
+  "name": "vscode-dot-http-files",
+  "displayName": "vscode-dot-http-files",
+  "description": "Language support for .http files.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "http",
+        "aliases": [
+          "HTTP Files",
+          "http"
+        ],
+        "extensions": [
+          ".http"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "http",
+        "scopeName": "source.http",
+        "path": "./syntaxes/http.tmLanguage.json"
+      }
+    ]
+  }
+}
