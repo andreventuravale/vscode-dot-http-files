@@ -2,7 +2,7 @@
   "name": "vscode-dot-http-files",
   "displayName": ".http files",
   "description": "Language support for .http files.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.88.0"
   },
